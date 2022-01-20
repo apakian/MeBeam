@@ -553,6 +553,16 @@
     case "hi":
     beamobj.my_id=jsn.uuid;
     beamobj.my_alias=jsn.hancock;
+    if(app.display_nick==null||app.display_nick=="")
+     {
+     app.display_nick="user-"+beamobj.my_id;
+     if(aa.stringIndexOf(true,beamobj.my_alias," ",0)==-1)
+      {
+      app.display_nick=beamobj.my_alias;
+      }
+     }
+
+    uixPaintAll(true);
     appLog("MY_ID="+beamobj.my_id+"  MY_ALIAS="+beamobj.my_alias);
     for(p=0;p<beamobj.max_peers;p++)
      {

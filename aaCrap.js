@@ -14,7 +14,7 @@
  app.uixbb.button_info.push({sprite_index:43,text:"Devices"});
  app.uixbb.button_info.push({sprite_index:21,text:"Effects"});
  app.uixbb.button_info.push({sprite_index:20,text:"Next"});
- //app.uixbb.button_info.push({sprite_index:27,text:"Next"});
+ app.uixbb.button_info.push({sprite_index:23,text:"Invite"});
  //app.uixbb.button_info.push({sprite_index:15,text:"Settings"});
  if(use_options_menu==true)
   {
@@ -52,7 +52,7 @@
  ms=aa.timerMsRunning();
  el=ms-app.uixbb.spin_ms;
  if(el<3) { return; }
- app.uixbb.spin_angle++;
+ app.uixbb.spin_angle+=2;
  app.uixbb.spin_ms=ms;
  dsz=uixDispSizes();
  uixRepaintBottomBar(dsz);

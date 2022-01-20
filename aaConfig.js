@@ -1,6 +1,6 @@
 
- var app_version=132;
- var app_speed=26;
+ var app_version=135;
+ var app_speed=28;
  var max_peers=4;
  var max_rooms=2;
 /*-----------------------------------------------------------------------*/
@@ -12,7 +12,7 @@
  var manip_sdp=true;
  var sbool=true;
  var arata=(32*8);
- var vrata=(184*8);
+ var vrata=(192*8);
  var x_aec=true;
  var x_nsu=false;
  var x_agc=true;
@@ -56,7 +56,7 @@
 
  var cfg_use_keyboard=true;
 
- var cfg_ar_min_speed=300;
+ var cfg_ar_min_speed=300000;
 
 /*-----------------------------------------------------------------------*/
 

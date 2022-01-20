@@ -27,6 +27,30 @@
 
 
 
+
+ function appHighEntropyInfoGet ()
+ {
+ if(navigator.userAgentData)
+  {
+  navigator.userAgentData.getHighEntropyValues(["architecture","model","platformVersion","uaFullVersion"])
+  .then(ua=>
+   {
+   app.self.user_agent_data=ua;
+   })
+  .catch(function()
+   {
+   app.self.user_agent_data="";
+   });
+  }
+ else
+  {
+  app.self.user_agent_data="";
+  }
+ }
+
+
+
+
  function appStart ()
  {
  var str;
@@ -38,6 +62,7 @@
  app.mup={};
  app.db=aa.storageCreate(false);
  app.room_number=0;
+ app.display_nick="";
  roomNext();
  //aa.debugClear(3);
  aa.debugLoggerLevelSet(80);
@@ -53,19 +78,19 @@
  str+="`"+app.self.envinfo.ver+"`"+"/";
  str+="`"+app.self.envinfo.who+"`"+"/";
  str+="`"+app.self.envinfo.ua+"`";
+ app.self.user_agent_data=null;
+ appHighEntropyInfoGet();
+ //console.log(navigator.userAgentData);
  app.self.env_string=str;
  app.self.is_what=aa.envBrowserArgByKey("nick").val;
  app.self.is_started=true;
  app.self.speed=0;//500;//aa.debugSpeedTest();
- if(use_profiler==true)
-  {
-  aaProfilerStart();
-  }
+ if(use_profiler==true)  {  aaProfilerStart();  }
  else
   {
   aaProfilerStart();
   }
-
+ //alert(window.location.href);
  }
 
 
@@ -153,8 +178,39 @@
  }
 
 
+ function inviteOthers ()
+ {
+ var url,lnk,txt,tit;
+ txt="You see what I'm saying!\n\n";
+ lnk="https://mebeam.com/";
+ tit="Meet Me at MeBeam\n";
+ if(navigator.share)
+  {
+  console.log("have share")
+  navigator.share({title:tit,text:txt,url:lnk})
+  .then(()=>
+   {
+   console.log("invite ok");
+   })
+  .catch((error)=>
+   {
+   console.log("error "+error.name+"  "+error.message);
+   });
+  }
+ else
+  {
+  return false;
+  }
+ return true;
+ }
+
 
  //function appErrMessage
+
+ function calcSineY(x,w,h,f)
+ {
+ return h-h*Math.sin(x*2*Math.PI*(f/w));
+ }
 
 
 
@@ -163,7 +219,7 @@
  {
  var grp,disp,rect;
  var cstream,vstream,astream,stream,med;
- var grpv,ret,oldstage,val,res,dsz,spray,mes,fnt,txt,grad,mv;
+ var grpv,ret,oldstage,val,res,dsz,spray,mes,fnt,txt,grad,mv,xx,yy;
 
  if(1&&use_profiler==true&&mb_profile_group_app) {  aaProfilerHit(arguments.callee.name); }
 
@@ -194,9 +250,20 @@
   case 25:
   app.self.speed=aa.numFixed(app.self.speed/5);
   console.log("SPEED="+app.self.speed);
+  //console.log(navigator.userAgentData);
   ///console.log(aa.timerMsRunning()+" ms so far...... stage "+aa.main_state.stage+" speed="+app.self.speed);
+  aa.mainStageSet(30);
+  break;
+
+  case 30:
+  if(app.self.user_agent_data==null) { break; }
+  ///if(app.self.user_hient_data==null) { break; }
+  console.log("uad=");
+  console.log(app.self.user_agent_data);
   aa.mainStageSet(100);
   break;
+
+
 
 
 
@@ -279,10 +346,13 @@
   uixElementSizeSet(grp.obj.id,dsz[0],dsz[1],0,0,dsz[0],dsz[1]);
   spray=app.uix.sprite.sheet_map[28];
   mv=(aa.timerMsRunning()/20)%256;
-  grad=grp.obj.ctx.createLinearGradient(mv,mv*2,dsz[0],dsz[1]);
-  grad.addColorStop(0.0,aa.guiRgbaString(255,255,255,1.0));
+  xx=((aa.timerMsRunning())/10)%256;
+  yy=calcSineY(xx,dsz[0],128,5)|0;
+  grad=grp.obj.ctx.createLinearGradient(yy,xx,dsz[0],dsz[1]);
+  //grad.addColorStop(0.0,aa.guiRgbaString(255,255,255,1.0));
+  grad.addColorStop(0.0,aa.guiRgbaString(yy,yy,yy,1.0));
   grad.addColorStop(0.5,aa.guiRgbaString(254,231,21,1.0));
-  grad.addColorStop(1.0,aa.guiRgbaString(mv,200,21,1.0));
+  grad.addColorStop(1.0,aa.guiRgbaString(yy,200,255,1.0));
   aa.guiCanvasFillFull(grp.han,grad);
   fnt="600 48px 'arial'";
   txt="Click to Start MeBeam";
@@ -300,6 +370,9 @@
   //app_version
   spray=null;
   grad=null;
+
+  //aa.guiCanvasFill(grp.han,xx%dsz[0],yy,5,5,aa.guiRgbaString(54,55,55,1.0));
+  //console.log(calcSineY(aa.timerMsRunning(),1000,500,1));
   if(aa.main_state.initial_click!=true) { break; }
   //uixElementDisplay(grp.obj.id,false);
   aa.mainStageSet(380);
