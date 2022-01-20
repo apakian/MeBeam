@@ -814,6 +814,11 @@
   spriteDrawEx(app.uix.sprite,grpo.obj.id,sprayx.x,sprayx.y,sprayx.w,sprayx.h, rect.width-sprayx.rw-20,5,sprayx.rw,sprayx.rh,0,0,crs);
   aa.guiSpotAdd(parseInt(spid),area.left+(rect.width-sprayx.rw-20),area.top+5,sprayx.rw,sprayx.rh);
 
+  //console.log(area);
+  //fh=Math.round((area.height-10)*0.6);
+  //fnt="400 "+(fh*1.0)+"px '"+fam+"'";
+  //uixText3d(grpo.han,5,5,-1,-1,fnt,app.uix.rgb_text_shadow,app.uix.rgb_text_color,app.display_nick);
+
   if(cfg_overlay_extra_buttons==true)
    {
    spid++;

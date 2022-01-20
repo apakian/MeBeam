@@ -27,7 +27,7 @@
   return false;
   }
 
- if((spot.id>=100&&spot.id<=103)&&(spot.id!=102))
+ if((spot.id>=100&&spot.id<=103)&&(spot.id!=102&&spot.id!=103))
   {
   ix=spot.id-100;
   if(app.uixbb.button_pressed==ix)  {  uixBottomBarPress(-1);   }
@@ -38,7 +38,7 @@
 
  if(spot.id==102)
   {
-  if(aa.main_state.stage==700)
+  if(aa.main_state.stage>=700)
    {
    uixBottomBarPress(-1);
    uixBottomBarSpinState(true);
@@ -49,6 +49,16 @@
   return true;
   }
 
+ if(spot.id==103)
+  {
+  if(aa.main_state.stage>=700)
+   {
+   uixBottomBarPress(-1);
+   inviteOthers();
+   }
+  uixPaintAll(true);
+  return true;
+  }
 
  if(spot.id>=5000&&spot.id<=(5000+(max_peers*100)) )
   {

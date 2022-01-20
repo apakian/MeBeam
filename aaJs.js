@@ -4896,16 +4896,19 @@ outline-style: outset;
 
 
   case 220:
-  console.log("mdd enumerate");
+  console.log("mdd enumerate "+aa.timerMsRunning());
   navigator.mediaDevices.enumerateDevices()
   .then(function(devs)
    {
+    //console.log(aa.timerMsRunning());
    devs.forEach(function(device)
     {
     obj.state.detect_obj.ray[obj.state.detect_obj.devix]=device;
+
     if(device.getCapabilities) { obj.state.detect_obj.cap[obj.state.detect_obj.devix]=device.getCapabilities(); }
     else                       { obj.state.detect_obj.cap[obj.state.detect_obj.devix]=null;  }
-///    console.log(device);
+
+    //console.log(aa.timerMsRunning(),device);
     obj.state.detect_obj.devix++;
     });
    obj.state.detect_obj.res="ok";
