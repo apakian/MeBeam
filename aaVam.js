@@ -326,37 +326,7 @@
    grpv.vars.prev_time=0;
    grpv.vars.frame_number=0;
    grpv.vars.fps=0;
-
-   /*
-   if(grpc.vars.rtc_handle!=0)
-    {
-    if(rtc.vars.audio_processor!=null)
-     {
-///     audioDisconnectNodes(rtc.vars.audio_processor);
-     appLog("swap = disconnecting");
-//     rtc.vars.audio_processor.scripter.disconnect();
- //    rtc.vars.audio_processor.analyser.disconnect();
-  //   rtc.vars.audio_processor.microphone.disconnect();
-     //rtc.vars.audio_processor.microphone.disconnect(rtc.vars.audio_processor.scripter);
-     //rtc.vars.audio_processor.scripter.disconnect(rtc.vars.audio_processor.destination.stream);
-     ///rtc.vars.audio_processor=null;
-     }
-    }
-   */
    swapKing();
-   /*
-   cstream=grpc.dom.captureStream(v_fps);
-   vstream=cstream.getVideoTracks()[0];
-   astream=obj.a_stream;
-   stream=mediaCombineStreams(astream,vstream);
-   if(grpc.vars.rtc_handle!=0)
-    {
-    appLog("ending audio_processor, grpc.vars.rtc_handle="+grpc.vars.rtc_handle);
-    rtc.vars.audio_processor=audioProcessorStart(grpc.obj.id,stream,stream);
-    //rtc.vars.audio_processor=mediaAudioProcessor(grpc.obj.id,stream);
-    stream.getTracks().forEach(function(track)    {    rtc.vars.pc.addTrack(track,stream);    });
-    }
-    */
    uixPaintAll(true);
    appLog("swap mic yield OK !!");
    app.media.mic_swap_stage=0;
@@ -411,38 +381,7 @@
    grpv.vars.prev_time=0;
    grpv.vars.frame_number=0;
    grpv.vars.fps=0;
-/*
-   if(grpc.vars.rtc_handle!=0)
-    {
-    if(rtc.vars.audio_processor!=null)
-     {
- ///    rtc.vars.audio_processor.scripter.disconnect();
-  ///   rtc.vars.audio_processor.analyser.disconnect();
-     //rtc.vars.audio_processor.microphone.disconnect();
-     ///audioDisconnectNodes(rtc.vars.audio_processor);
-     appLog("swap >> disconnecting");
-     //rtc.vars.audio_processor=null;
-     }
-    }
-*/
    swapKing();
-
-
-    /*
-   cstream=grpc.dom.captureStream(v_fps);
-   vstream=cstream.getVideoTracks()[0];
-   astream=obj.a_stream;
-   stream=mediaCombineStreams(astream,vstream);
-   if(grpc.vars.rtc_handle!=0)
-    {
-    appLog("ending audio_processor, grpc.vars.rtc_handle="+grpc.vars.rtc_handle);
-    rtc.vars.audio_processor=audioProcessorStart(grpc.obj.id,stream,stream);
-    //rtc.vars.audio_processor=mediaAudioProcessor(grpc.obj.id,stream);
-    stream.getTracks().forEach(function(track)    {    rtc.vars.pc.addTrack(track,stream);    });
-    }
-   */
-
-
    uixPaintAll(true);
    appLog("swap CAM yield OK !@!");
    app.media.cam_swap_stage=0;
@@ -550,13 +489,6 @@
   str=labelZap(str,"Communications",4,9);
   str=labelZap(str,"Camera",3,3);
   str=labelZap(str,"Webcam",0,3);
-  /*
-  str=labelZap(str,"via");
-  str=labelZap(str,"Default ",3,4);
-  str=labelZap(str,"Microphone ",3,7);
-  str=labelZap(str,"Communications ",4,9);
-  str=labelZap(str,"  HD ",0,1);
-  */
   //str=labelZap(str,"Bluetooth",3,1);
   }
  return str;
@@ -818,10 +750,6 @@
  med_object=aa.mediaGet(app.media_handle);
  aud_stream=med_object.a_stream;
  new_stream=mediaCombineStreams(aud_stream,vid_tracks);
- //tr=new_stream.getVideoTracks()[0];
- //console.log("trv",tr);
- //tr=new_stream.getAudioTracks()[0];
- //console.log("tra",tr);
  grpc.vars.audio_processor=audioProcessorStart(grpc.obj.id,new_stream);
  app.aud_pro=grpc.vars.audio_processor;
  }
@@ -842,16 +770,10 @@
  med_object=aa.mediaGet(app.media_handle);
  aud_stream=med_object.a_stream;
  new_stream=mediaCombineStreams(aud_stream,vid_tracks);
- //tr=new_stream.getVideoTracks()[0];
- //console.log("trv",tr);
- //tr=new_stream.getAudioTracks()[0];
- //console.log("tra",tr);
- //grpc.vars.audio_processor=audioProcessorStart(grpc.obj.id,new_stream);
  grpc.vars.audio_processor.microphone.disconnect();
  grpc.vars.audio_processor.microphone=grpc.vars.audio_processor.context.createMediaStreamSource(new_stream);//micstream);
  grpc.vars.audio_processor.microphone.connect(grpc.vars.audio_processor.analyser);
  grpc.vars.audio_processor.stream=new_stream;
-
  }
 
 
@@ -1050,18 +972,6 @@
  lev=aa.numFixed((mv-(-160)),0);
  object.analyser_level=lev;
  //console.log(object.analyser_level);
- /*
- if((object.analyser_cycle%3)==0)
-  {
-  if(lev<75) {}
-  uixOverlayLog("b_overlay_0",0,cfg_overlay_lines-0," "+lev);
-  dsz=uixDispSizes();
-  uixRepaintOverlay(dsz,0);
-  //uixRepaintAllOverlays(dsz);
-//  uixPaintAll(true);
-  }
- */
-
 
  object.analyser_cycle++;
  }
@@ -1107,20 +1017,6 @@
 
 
 
-
- function swapZindex (grp1,grp2)
- {
- var tza,tzb;
- if(grp1.obj.dom.style.zIndex>grp2.obj.dom.style.zIndex&&1)
-  {
-  tza=grp1.obj.dom.style.zIndex;
-  tzb=grp2.obj.dom.style.zIndex;
-  grp2.obj.dom.style.zIndex=tza;
-  grp1.obj.dom.style.zIndex=tzb;
-  grp1.obj.dom.style.visibility="hidden";
-  //app.uix.did_swap=true;
-  }
- }
 
 
 
@@ -1334,12 +1230,7 @@
 
       uixVideoAddVadColor(cgrp,cw,ch);
       }
-
-
      }
-
-
-
     }
    else
     {
