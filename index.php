@@ -63,15 +63,12 @@ echoScript($code_host."/aaCrap.js?".$vvv);
 echoScript($code_host."/aaUix.js?".$vvv);
 echoScript($code_host."/aaSprite.js?".$vvv);
 echoScript($code_host."/aaBeam.js?".$vvv);
-//echoScript($code_host."/aaMedia.js?".$vvv);
-//echoScript($code_host."/aaAudio.js?".$vvv);
-//echoScript($code_host."/aaVideo.js?".$vvv);
 echoScript($code_host."/aaFace.js?".$vvv);
 echoScript($code_host."/aaMarkup.js?".$vvv);
 echoScript($code_host."/aaIO.js?".$vvv);
 echoScript($code_host."/aaRex.js?".$vvv);
 echoScript($code_host."/aaVam.js?".$vvv);
 echoScript($code_host."/aaVideo.js?".$vvv);
-//echoScript($code_host."/aaKing.js?".$vvv);
+
 ?>
 </html>
